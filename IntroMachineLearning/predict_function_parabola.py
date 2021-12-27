@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+"""
+Using PyTorch neural network module to make a 4th-degree polynomial approximation to x**2
+"""
 import torch
 import math
 import matplotlib.pyplot as plt
@@ -13,7 +17,7 @@ device = torch.device("cpu")
 x = torch.linspace(-math.pi, math.pi, 2000, device=device, dtype=dtype)
 
 y = x**2
-#y = torch.cos(x)
+# y = torch.cos(x)
 
 # Create random Tensors for weights. For a third order polynomial, we need
 # 4 weights: y = a + b x + c x^2 + d x^3
@@ -23,8 +27,6 @@ a = torch.randn((), device=device, dtype=dtype, requires_grad=True)
 b = torch.randn((), device=device, dtype=dtype, requires_grad=True)
 c = torch.randn((), device=device, dtype=dtype, requires_grad=True)
 d = torch.randn((), device=device, dtype=dtype, requires_grad=True)
-
-
 #d = torch.tensor(1e-20, device=device, dtype=dtype, requires_grad=True)
 
 learning_rate = 1e-6
