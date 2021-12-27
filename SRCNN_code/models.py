@@ -1,5 +1,9 @@
 from torch import nn
 
+# MODIFIED according to the results presented by the FSRCNN paper and the EDSR paper
+# PReLU instead of ReLU for nonlinearity 
+# Filter size decreased to 9-5-9
+# Feedback of "x" to transition to a residual block 
 
 class SRCNN(nn.Module):
     def __init__(self, num_channels=1):
