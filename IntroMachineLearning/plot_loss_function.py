@@ -4,7 +4,7 @@
 """
 Same code as before but we are using graphs to see the changes and changing y function to experiment with new aproximations 
 Reference code: https://pytorch.org/tutorials/beginner/examples_autograd/polynomial_autograd.html#sphx-glr-beginner-examples-autograd-polynomial-autograd-py
-
+Approximating sin(x) using a 4th degree polynomial and a basic neuronal network
 """
 
 import torch
