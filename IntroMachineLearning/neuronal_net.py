@@ -3,6 +3,7 @@
 PyTorch Approximating a function using PyTorch Neural Network Module
 A third order polynomial, trained to predict y=sin(x) from -pi to pi
 by minimizing squared Euclidean distance.
+https://pytorch.org/tutorials/beginner/examples_nn/polynomial_nn.html#sphx-glr-beginner-examples-nn-polynomial-nn-py
 """
 
 import torch
@@ -33,14 +34,13 @@ loss_array=np.array([])
 # The Flatten layer flatens the output of the linear layer to a 1D tensor,
 # to match the shape of `y`.
 model = torch.nn.Sequential( 
-    torch.nn.Linear(3, 1), #here numpy is making the polynomial function
+    torch.nn.Linear(3, 1), # here numpy is making the polynomial function
     # this allow us to have multiple layers for super resolution networks 
     torch.nn.Flatten(0, 1)
 )
 
 # nn.Linear (3 entradas, 1 salida)
-# las entradas son los random numeros de los coeficientes 
-# y se crea como funcion
+# las entradas son los numeros random de los coeficientes y se crea como funcion
 
 # The nn package also contains definitions of popular loss functions; in this
 # case we will use Mean Squared Error (MSE) as our loss function.
@@ -48,29 +48,23 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 # es la misma loss, (y-y_pred)^2+()^2+()^2+()^2+()^2
 
 learning_rate = 1e-6
-for t in range(2000):
-    
+for t in range(2000):    
     # you usually have training data and testing data
-
     # Forward pass: compute predicted y by passing x to the model. Module objects
     # override the __call__ operator so you can call them like functions. When
     # doing so you pass a Tensor of input data to the Module and it produces
     # a Tensor of output data.
     y_pred = model(xx)
-
     # Compute and print loss. We pass Tensors containing the predicted and true
-    # values of y, and the loss function returns a Tensor containing the
-    # loss.
+    # values of y, and the loss function returns a Tensor containing the loss.
     loss = loss_fn(y_pred, y) # same loss using the functioon loss_fn
     if t % 100 == 99:
         print(t, loss.item())
-
     # numpy vector for the loss values 
-    loss_array=np.append(loss_array, loss.item())
+    loss_array=np.append(loss_array, loss.item()) # a partir de este vector podemos graficar la pérdida
     
     # Zero the gradients before running the backward pass.
     model.zero_grad()
-
     # Backward pass: compute gradient of the loss with respect to all the learnable
     # parameters of the model. Internally, the parameters of each Module are stored
     # in Tensors with requires_grad=True, so this call will compute gradients for
@@ -83,7 +77,7 @@ for t in range(2000):
         for param in model.parameters():
             param -= learning_rate * param.grad
             
-    #Pot the functions to see what's going on, for me 
+    # Pot the functions to see what's going on, for me 
     # x1 = x.detach().cpu().numpy()
     # y1 = y.detach().cpu().numpy()
     # xx1 = xx.detach().cpu().numpy() my attemp
