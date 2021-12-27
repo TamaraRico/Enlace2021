@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import torch
-#import torch.backends.cudnn as cudnn
-#from models import SRCNN
+# Implementation of geometric self-ensamble as seen in the EDSR paper 
+
+# import torch.backends.cudnn as cudnn
+# from models import SRCNN
 # import PIL.Image as pil_image
 from PIL import ImageOps 
 from utils import preprocess, preprocess2, from_pred_to_image
@@ -28,10 +30,9 @@ def flip_im(image, model, y, device):
          
     with torch.no_grad():
          pred2 = model(out1).clamp(0.0, 1.0)
-         # convertir otra vez a un objeto pil image para poder rotarla coon la misma fucion
-         # hacer la rotacio inversa
+         # convertir otra vez a un objeto pil image para poder rotarla coon la misma fucion hacer la rotacio inversa
          # convertir otra vez a array para hacer el promedio y el resto de los cálculos 
-         # ver que hacer con las variables ycbr 
+         
          # im_pred2 = pil_image.fromarray(np.uint8(pred2)).convert('RGB')
          # im_pred2 = pil_image.fromarray(pred2.astype('uint8'), 'RGB')
          # pred2 = pred2.mul(255.0).cpu().numpy().squeeze(0).squeeze(0)
@@ -67,6 +68,3 @@ def flip_im(image, model, y, device):
     # out2.show()
     # out3.show()
     # out4.show()
-
-
-
