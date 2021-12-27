@@ -2,8 +2,9 @@
 #!/usr/bin/env python3
 
 """
-Same code as before but we are using graphs to see the changes and changing 
-y function to experiment with new aproximations 
+Same code as before but we are using graphs to see the changes and changing y function to experiment with new aproximations 
+Reference code: https://pytorch.org/tutorials/beginner/examples_autograd/polynomial_autograd.html#sphx-glr-beginner-examples-autograd-polynomial-autograd-py
+
 """
 
 import torch
@@ -13,7 +14,7 @@ import numpy as np
 
 dtype = torch.float
 device = torch.device("cpu")
-#device = torch.device("cuda")  # Uncomment this to run on GPU
+# device = torch.device("cuda")  # Uncomment this to run on GPU
 
 # Create Tensors to hold input and outputs.
 # By default, requires_grad=False, which indicates that we do not need to
@@ -23,7 +24,7 @@ x = torch.linspace(-math.pi, math.pi, 2000, device=device, dtype=dtype)
 y = torch.exp(x)
 # y = torch.sin(x)
 
-ar=np.array([])
+ar=np.array([]) # Array holding the loss values for future graph
 numbers=np.arange(2000)
 
 # Create random Tensors for weights. For a third order polynomial, we need
@@ -35,8 +36,6 @@ b = torch.randn((), device=device, dtype=dtype, requires_grad=True)
 c = torch.randn((), device=device, dtype=dtype, requires_grad=True)
 d = torch.randn((), device=device, dtype=dtype, requires_grad=True)
 e = torch.randn((), device=device, dtype=dtype, requires_grad=True)
-
-
 #d = torch.tensor(1e-20, device=device, dtype=dtype, requires_grad=True)
 
 learning_rate = 1e-9
@@ -44,12 +43,11 @@ loss_old = None
 for t in range(20000):
     # Forward pass: compute predicted y using operations on Tensors.
     y_pred = a + b * x + c * x ** 2 + d * x ** 3 + e * x ** 4
-
     # Compute and print loss using operations on Tensors.
     # Now loss is a Tensor of shape (1,)
     # loss.item() gets the scalar value held in the loss.
     loss = (y_pred - y).pow(2).sum()
-    if t % 100 == 99:
+    if t % 100 == 99: 
         print(t, loss.item())
     ar=np.append(ar, loss.item())
         
@@ -76,7 +74,7 @@ for t in range(20000):
         d.grad = None
         e.grad = None
 
-    #ajustar el learning rate para que el resultado sea mas exacto
+    # ajustar el learning rate para que el resultado sea mas exacto
     if loss_old is not None:
          if loss.item() < loss_old:
              learning_rate = learning_rate * 2
